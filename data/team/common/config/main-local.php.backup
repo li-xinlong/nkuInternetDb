@@ -1,0 +1,27 @@
+<?php
+return [
+    'components' => [
+        'db' => [
+            'class' => 'yii\db\Connection',
+            'dsn' => 'mysql:host=127.0.0.1;port=3306;dbname=Webbase;charset=utf8mb4',
+            'username' => 'woo',       // 用户名：woo
+            'password' => '123456', // 密码：123456
+            'enableSchemaCache' => true,
+            'schemaCacheDuration' => 3600,
+            'schemaCache' => 'cache',
+        ],
+        'cache' => [
+            'class' => 'yii\caching\FileCache',
+        ],
+        'log' => [
+            'traceLevel' => YII_DEBUG ? 3 : 0,
+            'targets' => [
+                [
+                    'class' => 'yii\log\FileTarget',
+                    'levels' => ['error', 'warning'],
+                    'logFile' => '@app/runtime/logs/app.log',
+                ],
+            ],
+        ],
+    ],
+];
