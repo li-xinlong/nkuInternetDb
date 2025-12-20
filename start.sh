@@ -251,7 +251,9 @@ setup_database() {
     
     # 检查数据库是否已存在
     log_info "检查数据库是否已存在..."
-    DB_EXISTS=$(mysql -u root -e "SHOW DATABASES LIKE '$DB_NAME'" 2>/dev/null | grep -c "$DB_NAME")
+    # DB_EXISTS=$(mysql -u root -e "SHOW DATABASES LIKE '$DB_NAME'" 2>/dev/null | grep -c "$DB_NAME")
+    DB_EXISTS=$(mysql -u root -e "SHOW DATABASES LIKE '$DB_NAME'" 2>/dev/null | grep -c "$DB_NAME" || true)
+
     
     if [ "$DB_EXISTS" -eq 1 ]; then
         log_info "数据库 $DB_NAME 已存在，跳过创建"
