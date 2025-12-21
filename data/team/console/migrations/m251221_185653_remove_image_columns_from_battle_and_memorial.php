@@ -54,3 +54,4 @@ class m251221_185653_remove_image_columns_from_battle_and_memorial extends Migra
     }
 }
 
+

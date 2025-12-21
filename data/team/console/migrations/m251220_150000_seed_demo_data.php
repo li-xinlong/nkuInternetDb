@@ -44,3 +44,4 @@ class m251220_150000_seed_demo_data extends Migration
     }
 }
 
+

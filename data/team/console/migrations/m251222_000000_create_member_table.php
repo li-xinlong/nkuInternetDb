@@ -43,3 +43,4 @@ class m251222_000000_create_member_table extends Migration
     }
 }
 
+

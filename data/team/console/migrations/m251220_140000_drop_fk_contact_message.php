@@ -26,3 +26,4 @@ class m251220_140000_drop_fk_contact_message extends Migration
     }
 }
 
+

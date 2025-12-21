@@ -36,3 +36,4 @@ class m251220_150100_seed_more_today extends Migration
     }
 }
 
+
