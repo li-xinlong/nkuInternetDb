@@ -1,5 +1,14 @@
 <?php
 use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+use yii\widgets\ListView;
+
+/**
+ * @var \yii\web\View $this
+ * @var \common\models\Battle $model
+ * @var \common\models\Guestbook $commentModel
+ * @var \yii\data\ActiveDataProvider $commentDataProvider
+ */
 
 $this->title = $model->name;
 ?>
@@ -29,12 +38,6 @@ $this->title = $model->name;
         <div class="row">
             <!-- 主要内容 -->
             <div class="col-md-8">
-                <?php if ($model->cover_image): ?>
-                <div class="detail-image">
-                    <img src="<?= $model->cover_image ?>" alt="<?= Html::encode($model->name) ?>" class="img-responsive">
-                </div>
-                <?php endif; ?>
-
                 <div class="detail-section">
                     <h2><i class="fa fa-book"></i> 战役概述</h2>
                     <div class="content">
@@ -50,6 +53,8 @@ $this->title = $model->name;
                     </div>
                 </div>
                 <?php endif; ?>
+
+
             </div>
 
             <!-- 侧边栏 -->
@@ -91,13 +96,6 @@ $this->title = $model->name;
                         <?php endif; ?>
                     </table>
                 </div>
-
-                <?php if ($model->battle_map): ?>
-                <div class="sidebar-box">
-                    <h3>战役地图</h3>
-                    <img src="<?= $model->battle_map ?>" alt="战役地图" class="img-responsive">
-                </div>
-                <?php endif; ?>
 
                 <div class="sidebar-box">
                     <h3>相关链接</h3>
@@ -203,5 +201,80 @@ $this->title = $model->name;
     background: #f0f0f0;
     font-weight: normal;
     width: 40%;
+}
+
+/* 评论区域样式 */
+.comment-form-box {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+}
+
+.battle-comment-list {
+    margin-top: 10px;
+}
+
+.battle-comment-item {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.comment-avatar {
+    margin-right: 15px;
+}
+
+.avatar-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #d32f2f;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.comment-body {
+    flex: 1;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.comment-name {
+    font-weight: bold;
+    color: #333;
+}
+
+.comment-time {
+    font-size: 12px;
+    color: #999;
+}
+
+.comment-content {
+    font-size: 14px;
+    color: #444;
+    line-height: 1.6;
+}
+
+.comment-actions {
+    margin-top: 5px;
+}
+
+.comment-actions .comment-like {
+    font-size: 13px;
+    color: #d32f2f;
+    text-decoration: none;
+}
+
+.comment-actions .comment-like:hover {
+    text-decoration: underline;
 }
 </style>

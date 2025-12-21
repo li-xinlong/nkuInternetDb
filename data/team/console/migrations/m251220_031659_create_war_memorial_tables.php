@@ -9,8 +9,17 @@ class m251220_031659_create_war_memorial_tables extends Migration
 {
     public function safeUp()
     {
+        // 检查表是否已存在，如果存在则跳过
+        $checkTable = function($tableName) {
+            $rawName = $this->db->schema->getRawTableName($tableName);
+            return $this->db->getTableSchema($rawName, true) !== null;
+        };
+        
         // 1. 战役表
-        $this->createTable('{{%battle}}', [
+        if ($checkTable('{{%battle}}')) {
+            echo "表 battle 已存在，跳过创建\n";
+        } else {
+            $this->createTable('{{%battle}}', [
             'id' => $this->primaryKey(),
             'name' => $this->string(100)->notNull()->comment('战役名称'),
             'english_name' => $this->string(100)->comment('英文名称'),

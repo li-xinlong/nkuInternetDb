@@ -6,7 +6,7 @@ use Yii;
 use yii\base\Model;
 
 /**
- * ContactForm is the model behind the contact form.
+ * ContactForm 用于提交用户留言。
  */
 class ContactForm extends Model
 {
@@ -14,8 +14,6 @@ class ContactForm extends Model
     public $email;
     public $subject;
     public $body;
-    public $verifyCode;
-
 
     /**
      * {@inheritdoc}
@@ -23,12 +21,12 @@ class ContactForm extends Model
     public function rules()
     {
         return [
-            // name, email, subject and body are required
-            [['name', 'email', 'subject', 'body'], 'required'],
-            // email has to be a valid email address
+            // 仅留言内容必填
+            ['body', 'required'],
+            // 其他字段标记为安全属性，便于后续自动赋值
+            [['name', 'email', 'subject'], 'safe'],
+            // 邮箱格式校验（若有提供）
             ['email', 'email'],
-            // verifyCode needs to be entered correctly
-            ['verifyCode', 'captcha'],
         ];
     }
 
@@ -38,23 +36,23 @@ class ContactForm extends Model
     public function attributeLabels()
     {
         return [
-            'verifyCode' => 'Verification Code',
+            'body'   => '留言内容',
         ];
     }
 
     /**
-     * Sends an email to the specified email address using the information collected by this model.
+     * 发送邮件到指定地址。
      *
-     * @param string $email the target email address
-     * @return bool whether the email was sent
+     * @param string $email 目标邮箱
+     * @return bool 是否发送成功
      */
     public function sendEmail($email)
     {
         return Yii::$app->mailer->compose()
             ->setTo($email)
             ->setFrom([Yii::$app->params['senderEmail'] => Yii::$app->params['senderName']])
-            ->setReplyTo([$this->email => $this->name])
-            ->setSubject($this->subject)
+            ->setReplyTo([$this->email ?: Yii::$app->user->identity->email => $this->name ?: Yii::$app->user->identity->username])
+            ->setSubject($this->subject ?: '网站留言')
             ->setTextBody($this->body)
             ->send();
     }

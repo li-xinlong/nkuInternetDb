@@ -70,18 +70,13 @@ $this->title = '首页';
             <?php foreach ($featuredBattles as $battle): ?>
             <div class="col-md-4 col-sm-6">
                 <div class="battle-card">
-                    <div class="battle-image">
-                        <?php if ($battle->cover_image): ?>
-                            <img src="<?= $battle->cover_image ?>" alt="<?= Html::encode($battle->name) ?>">
-                        <?php else: ?>
-                            <div class="no-image"><i class="fa fa-image"></i></div>
-                        <?php endif; ?>
-                        <div class="battle-result result-<?= $battle->result ?>">
-                            <?= $battle->getResultText() ?>
-                        </div>
-                    </div>
                     <div class="battle-info">
-                        <h3><?= Html::a(Html::encode($battle->name), ['/battle/view', 'id' => $battle->id]) ?></h3>
+                        <div class="battle-header">
+                            <h3><?= Html::a(Html::encode($battle->name), ['/battle/view', 'id' => $battle->id]) ?></h3>
+                            <span class="battle-result result-<?= $battle->result ?>">
+                                <?= $battle->getResultText() ?>
+                            </span>
+                        </div>
                         <div class="battle-meta">
                             <span><i class="fa fa-map-marker"></i> <?= Html::encode($battle->location) ?></span>
                             <span><i class="fa fa-calendar"></i> <?= date('Y年m月', strtotime($battle->start_date)) ?></span>
@@ -177,13 +172,6 @@ $this->title = '首页';
             <div class="col-md-3 col-sm-6">
                 <div class="memorial-card">
                     <?= Html::a('', ['/memorial/view', 'id' => $memorial->id], ['class' => 'memorial-link']) ?>
-                    <div class="memorial-image">
-                        <?php if ($memorial->cover_image): ?>
-                            <img src="<?= $memorial->cover_image ?>" alt="<?= Html::encode($memorial->name) ?>">
-                        <?php else: ?>
-                            <div class="no-image"><i class="fa fa-building"></i></div>
-                        <?php endif; ?>
-                    </div>
                     <div class="memorial-info">
                         <h4><?= Html::encode($memorial->name) ?></h4>
                         <p class="memorial-location">
@@ -383,37 +371,20 @@ $this->title = '首页';
     box-shadow: 0 4px 16px rgba(0,0,0,0.2);
 }
 
-.battle-image {
-    position: relative;
-    height: 200px;
-    overflow: hidden;
-    background: #f0f0f0;
-}
-
-.battle-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.no-image {
+.battle-header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    height: 100%;
-    font-size: 60px;
-    color: #ccc;
+    margin-bottom: 15px;
 }
 
 .battle-result {
-    position: absolute;
-    top: 10px;
-    right: 10px;
     padding: 5px 15px;
     border-radius: 20px;
     font-weight: bold;
     font-size: 12px;
     color: #fff;
+    white-space: nowrap;
 }
 
 .battle-result.result-victory {
@@ -639,18 +610,6 @@ $this->title = '首页';
     right: 0;
     bottom: 0;
     z-index: 1;
-}
-
-.memorial-image {
-    height: 200px;
-    overflow: hidden;
-    background: #f0f0f0;
-}
-
-.memorial-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
 }
 
 .memorial-info {

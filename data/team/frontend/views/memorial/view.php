@@ -21,12 +21,6 @@ $this->title = $model->name;
 
         <div class="row">
             <div class="col-md-8">
-                <?php if ($model->cover_image): ?>
-                <div class="detail-image">
-                    <img src="<?= $model->cover_image ?>" alt="<?= Html::encode($model->name) ?>" class="img-responsive">
-                </div>
-                <?php endif; ?>
-
                 <?php if ($model->description): ?>
                 <div class="detail-section">
                     <h2><i class="fa fa-info-circle"></i> 场馆简介</h2>

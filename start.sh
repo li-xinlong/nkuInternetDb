@@ -471,7 +471,27 @@ init_yii2() {
     
     cd "$PROJECT_PATH/data/team"
     
-    # 运行数据库迁移
+    # 检查并标记已存在的表对应的迁移
+    log_info "检查已存在的表..."
+    
+    # 检查 member 表是否存在（如果存在，说明是通过 install.sql 创建的）
+    if mysql -u woo -p123456 Webbase -e "SHOW TABLES LIKE 'member'" 2>/dev/null | grep -q "member"; then
+        log_info "member 表已存在，跳过相关迁移"
+    fi
+    
+    # 检查其他已存在的表，标记对应的迁移为已执行
+    if mysql -u woo -p123456 Webbase -e "SHOW TABLES LIKE 'user'" 2>/dev/null | grep -q "user"; then
+        log_info "user 表已存在，标记相关迁移为已执行"
+        php yii migrate/mark m130524_201442_init --interactive=0 >/dev/null 2>&1 || true
+        php yii migrate/mark m190124_110200_add_verification_token_column_to_user_table --interactive=0 >/dev/null 2>&1 || true
+    fi
+    
+    if mysql -u woo -p123456 Webbase -e "SHOW TABLES LIKE 'battle'" 2>/dev/null | grep -q "battle"; then
+        log_info "业务表已存在，标记相关迁移为已执行"
+        php yii migrate/mark m251220_031659_create_war_memorial_tables --interactive=0 >/dev/null 2>&1 || true
+    fi
+    
+    # 运行数据库迁移（只会运行未标记的迁移，主要是数据迁移）
     log_info "运行数据库迁移..."
     if php yii migrate --interactive=0 2>/dev/null; then
         log_info "数据库迁移完成"

@@ -6,6 +6,12 @@ class m130524_201442_init extends Migration
 {
     public function up()
     {
+        $tableName = $this->db->schema->getRawTableName('{{%user}}');
+        if ($this->db->getTableSchema($tableName, true) !== null) {
+            echo "表 {$tableName} 已存在，跳过创建\n";
+            return;
+        }
+
         $tableOptions = null;
         if ($this->db->driverName === 'mysql') {
             // http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci

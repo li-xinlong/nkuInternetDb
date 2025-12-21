@@ -20,8 +20,7 @@ use yii\helpers\Html;
         </p>
         <?php endif; ?>
         <div class="story-meta">
-            <span><i class="fa fa-eye"></i> <?= $model->views ?></span>
-            <span><i class="fa fa-heart"></i> <?= $model->likes ?></span>
+            <span><i class="fa fa-heart"></i> <?= $model->getLikeCount() ?></span>
         </div>
     </div>
 </div>
