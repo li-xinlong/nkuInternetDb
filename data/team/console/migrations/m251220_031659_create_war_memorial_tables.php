@@ -50,6 +50,9 @@ class m251220_031659_create_war_memorial_tables extends Migration
         $this->createIndex('idx-battle-result', '{{%battle}}', 'result');
 
         // 2. 战役阶段表
+        if ($checkTable('{{%battle_phase}}')) {
+            echo "表 battle_phase 已存在，跳过创建\n";
+        } else {
         $this->createTable('{{%battle_phase}}', [
             'id' => $this->primaryKey(),
             'battle_id' => $this->integer()->notNull()->comment('战役ID'),
@@ -62,8 +65,12 @@ class m251220_031659_create_war_memorial_tables extends Migration
             'created_at' => $this->integer()->notNull(),
         ]);
         $this->createIndex('idx-battle_phase-battle_id', '{{%battle_phase}}', 'battle_id');
+        }
 
         // 3. 英雄人物表
+        if ($checkTable('{{%hero}}')) {
+            echo "表 hero 已存在，跳过创建\n";
+        } else {
         $this->createTable('{{%hero}}', [
             'id' => $this->primaryKey(),
             'name' => $this->string(50)->notNull()->comment('姓名'),
@@ -88,8 +95,12 @@ class m251220_031659_create_war_memorial_tables extends Migration
             'updated_at' => $this->integer()->notNull(),
         ]);
         $this->createIndex('idx-hero-category', '{{%hero}}', 'category');
+        }
 
         // 4. 英雄事迹表
+        if ($checkTable('{{%hero_achievement}}')) {
+            echo "表 hero_achievement 已存在，跳过创建\n";
+        } else {
         $this->createTable('{{%hero_achievement}}', [
             'id' => $this->primaryKey(),
             'hero_id' => $this->integer()->notNull()->comment('英雄ID'),
@@ -103,8 +114,12 @@ class m251220_031659_create_war_memorial_tables extends Migration
             'created_at' => $this->integer()->notNull(),
         ]);
         $this->createIndex('idx-hero_achievement-hero_id', '{{%hero_achievement}}', 'hero_id');
+        }
 
         // 5. 武器装备表
+        if ($checkTable('{{%weapon}}')) {
+            echo "表 weapon 已存在，跳过创建\n";
+        } else {
         $this->createTable('{{%weapon}}', [
             'id' => $this->primaryKey(),
             'name' => $this->string(100)->notNull()->comment('武器名称'),
@@ -129,8 +144,12 @@ class m251220_031659_create_war_memorial_tables extends Migration
         ]);
         $this->createIndex('idx-weapon-category', '{{%weapon}}', 'category');
         $this->createIndex('idx-weapon-country', '{{%weapon}}', 'country');
+        }
 
         // 6. 历史时间轴表
+        if ($checkTable('{{%timeline_event}}')) {
+            echo "表 timeline_event 已存在，跳过创建\n";
+        } else {
         $this->createTable('{{%timeline_event}}', [
             'id' => $this->primaryKey(),
             'event_date' => $this->date()->notNull()->comment('事件日期'),
@@ -151,8 +170,12 @@ class m251220_031659_create_war_memorial_tables extends Migration
         ]);
         $this->createIndex('idx-timeline_event-event_date', '{{%timeline_event}}', 'event_date');
         $this->createIndex('idx-timeline_event-category', '{{%timeline_event}}', 'category');
+        }
 
         // 7. 纪念馆/遗址表
+        if ($checkTable('{{%memorial}}')) {
+            echo "表 memorial 已存在，跳过创建\n";
+        } else {
         $this->createTable('{{%memorial}}', [
             'id' => $this->primaryKey(),
             'name' => $this->string(200)->notNull()->comment('纪念馆名称'),
@@ -180,8 +203,12 @@ class m251220_031659_create_war_memorial_tables extends Migration
         ]);
         $this->createIndex('idx-memorial-type', '{{%memorial}}', 'type');
         $this->createIndex('idx-memorial-province', '{{%memorial}}', 'province');
+        }
 
         // 8. 抗战故事表
+        if ($checkTable('{{%story}}')) {
+            echo "表 story 已存在，跳过创建\n";
+        } else {
         $this->createTable('{{%story}}', [
             'id' => $this->primaryKey(),
             'title' => $this->string(200)->notNull()->comment('故事标题'),
@@ -206,8 +233,12 @@ class m251220_031659_create_war_memorial_tables extends Migration
             'updated_at' => $this->integer()->notNull(),
         ]);
         $this->createIndex('idx-story-category', '{{%story}}', 'category');
+        }
 
         // 9. 多媒体资源表
+        if ($checkTable('{{%media}}')) {
+            echo "表 media 已存在，跳过创建\n";
+        } else {
         $this->createTable('{{%media}}', [
             'id' => $this->primaryKey(),
             'title' => $this->string(200)->notNull()->comment('标题'),
@@ -232,8 +263,12 @@ class m251220_031659_create_war_memorial_tables extends Migration
         ]);
         $this->createIndex('idx-media-type', '{{%media}}', 'type');
         $this->createIndex('idx-media-related', '{{%media}}', ['related_model', 'related_id']);
+        }
 
         // 10. 留言板表
+        if ($checkTable('{{%guestbook}}')) {
+            echo "表 guestbook 已存在，跳过创建\n";
+        } else {
         $this->createTable('{{%guestbook}}', [
             'id' => $this->primaryKey(),
             'name' => $this->string(50)->notNull()->comment('留言者姓名'),
@@ -250,8 +285,12 @@ class m251220_031659_create_war_memorial_tables extends Migration
             'created_at' => $this->integer()->notNull(),
         ]);
         $this->createIndex('idx-guestbook-status', '{{%guestbook}}', 'status');
+        }
 
         // 11. 统计数据表
+        if ($checkTable('{{%statistics}}')) {
+            echo "表 statistics 已存在，跳过创建\n";
+        } else {
         $this->createTable('{{%statistics}}', [
             'id' => $this->primaryKey(),
             'stat_date' => $this->date()->notNull()->comment('统计日期'),
@@ -264,11 +303,19 @@ class m251220_031659_create_war_memorial_tables extends Migration
         ]);
         $this->createIndex('idx-statistics-date', '{{%statistics}}', 'stat_date');
         $this->createIndex('idx-statistics-type', '{{%statistics}}', ['stat_type', 'model_type']);
+        }
 
         // 12. 用户扩展(添加字段到已有user表)
-        $this->addColumn('{{%user}}', 'avatar', $this->string(255)->comment('头像'));
-        $this->addColumn('{{%user}}', 'nickname', $this->string(50)->comment('昵称'));
-        $this->addColumn('{{%user}}', 'role', $this->string(20)->defaultValue('user')->comment('角色:admin/editor/user'));
+        $userSchema = $this->db->schema->getTableSchema('{{%user}}', true);
+        if ($userSchema && $userSchema->getColumn('avatar') === null) {
+            $this->addColumn('{{%user}}', 'avatar', $this->string(255)->comment('头像'));
+        }
+        if ($userSchema && $userSchema->getColumn('nickname') === null) {
+            $this->addColumn('{{%user}}', 'nickname', $this->string(50)->comment('昵称'));
+        }
+        if ($userSchema && $userSchema->getColumn('role') === null) {
+            $this->addColumn('{{%user}}', 'role', $this->string(20)->defaultValue('user')->comment('角色:admin/editor/user'));
+        }
     }
 
     public function safeDown()

@@ -6,13 +6,23 @@ class m251220_150000_seed_demo_data extends Migration
 {
     public function safeUp()
     {
-        // 假資料：昨日訪問量 1600
+        // 检查是否已有演示数据（通过检查 guestbook 表中是否有"测试用户1"）
+        $hasData = (new \yii\db\Query())
+            ->from('{{%guestbook}}')
+            ->where(['name' => '测试用户1'])
+            ->exists();
+        
+        if ($hasData) {
+            echo "检测到演示数据已存在，跳过导入以避免重复。\n";
+            return true;
+        }
+       
         $yesterday = date('Y-m-d', strtotime('-1 day'));
         $this->batchInsert('{{%statistics}}',
             ['stat_date','stat_type','model_type','model_id','count','extra_data','created_at'],
             [[ $yesterday,'visit','frontend',0,1600,null,time()-86400 ]]);
 
-        // 今日留言 6 則
+   
         $now = time();
         for ($i=1;$i<=6;$i++) {
             $this->insert('{{%guestbook}}', [
@@ -24,7 +34,7 @@ class m251220_150000_seed_demo_data extends Migration
             ]);
         }
 
-        // 今日故事 4 篇
+  
         for ($j=1;$j<=4;$j++) {
             $this->insert('{{%story}}', [
                 'title' => '示例故事 '.$j,
@@ -43,5 +53,6 @@ class m251220_150000_seed_demo_data extends Migration
         return false;
     }
 }
+
 
 

@@ -80,6 +80,7 @@ $this->beginPage();
                 <li class="<?= Yii::$app->controller->id == 'memorial' ? 'active' : '' ?>"><?= Html::a('<i class="fa fa-building"></i> 纪念场馆', ['/memorial/index']) ?></li>
                 <li class="<?= Yii::$app->controller->id == 'timeline' ? 'active' : '' ?>"><?= Html::a('<i class="fa fa-clock-o"></i> 历史时间轴', ['/timeline/index']) ?></li>
                 <li class="<?= Yii::$app->controller->id == 'story' ? 'active' : '' ?>"><?= Html::a('<i class="fa fa-book"></i> 抗战故事', ['/story/index']) ?></li>
+                <li class="<?= Yii::$app->controller->id == 'site' && Yii::$app->controller->action->id == 'contact' ? 'active' : '' ?>"><?= Html::a('<i class="fa fa-envelope"></i> 联系我们', ['/site/contact']) ?></li>
                 <?php if (Yii::$app->user->isGuest): ?>
                     <li><?= Html::a('<i class="fa fa-sign-in"></i> 登录', ['/site/login']) ?></li>
                     <li><?= Html::a('<i class="fa fa-user-plus"></i> 注册', ['/site/signup']) ?></li>

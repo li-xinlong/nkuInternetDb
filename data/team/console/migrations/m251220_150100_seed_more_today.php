@@ -5,8 +5,19 @@ class m251220_150100_seed_more_today extends Migration
 {
     public function safeUp()
     {
+        // 检查是否已有数据（通过检查 guestbook 表中是否有"演示用户7"）
+        $hasData = (new \yii\db\Query())
+            ->from('{{%guestbook}}')
+            ->where(['name' => '演示用户7'])
+            ->exists();
+        
+        if ($hasData) {
+            echo "检测到自动生成数据已存在，跳过导入以避免重复。\n";
+            return true;
+        }
+
         $now = time();
-        // 再新增 40 条评论
+     
         for ($i=1;$i<=40;$i++) {
             $this->insert('{{%guestbook}}', [
                 'name' => '演示用户'.($i+6),
@@ -16,7 +27,7 @@ class m251220_150100_seed_more_today extends Migration
                 'created_at'=>$now - rand(0, 3600),
             ]);
         }
-        // 再新增 20 篇故事
+     
         for ($j=1;$j<=20;$j++) {
             $this->insert('{{%story}}', [
                 'title' => '自动生成故事 '.$j,
@@ -35,5 +46,6 @@ class m251220_150100_seed_more_today extends Migration
         return false;
     }
 }
+
 
 

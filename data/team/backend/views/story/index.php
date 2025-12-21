@@ -42,7 +42,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'buttons' => [
                     'approve' => function ($url, $model, $key) {
                         if ($model->status == 0) {
-                            return Html::a('批准', $url, ['class' => 'btn btn-xs btn-success', 'data-method' => 'post']);
+                            return Html::a('批准', $url, [
+                                'class' => 'btn btn-xs btn-success', 
+                                'data-method' => 'post',
+                                'data-confirm' => '您确定要批准发布这个故事《' . Html::encode($model->title) . '》吗？',
+                            ]);
                         }
                         return '';
                     },
@@ -60,5 +64,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php Pjax::end(); ?>
 
 </div>
+
 
 

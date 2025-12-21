@@ -2,16 +2,6 @@
 
 use yii\db\Migration;
 
-/**
- * 示例：创建新表的迁移文件模板
- * 
- * 使用方法：
- * 1. 使用命令生成：php yii migrate/create create_your_table_name
- * 2. 或者复制此文件，重命名为：m日期时间_create_your_table_name.php
- * 3. 修改类名和表名
- * 4. 在 safeUp() 中定义表结构
- * 5. 在 safeDown() 中定义回滚操作
- */
 class example_create_new_table extends Migration
 {
     /**

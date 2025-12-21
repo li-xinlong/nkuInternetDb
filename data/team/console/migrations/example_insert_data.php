@@ -2,16 +2,6 @@
 
 use yii\db\Migration;
 
-/**
- * 示例：插入数据的迁移文件模板
- * 
- * 使用方法：
- * 1. 使用命令生成：php yii migrate/create insert_your_data_name
- * 2. 或者复制此文件，重命名为：m日期时间_insert_your_data_name.php
- * 3. 修改类名
- * 4. 在 safeUp() 中插入数据
- * 5. 在 safeDown() 中删除数据（回滚）
- */
 class example_insert_data extends Migration
 {
     /**

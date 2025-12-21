@@ -471,6 +471,31 @@ init_yii2() {
     
     cd "$PROJECT_PATH/data/team"
     
+    # 检查数据库是否已有数据
+    log_info "检查数据库状态..."
+    
+    # 检查关键表是否有数据（通过检查 battle 表）
+    HAS_DATA=$(mysql -u woo -p123456 Webbase -e "SELECT COUNT(*) FROM battle" 2>/dev/null | tail -1 || echo "0")
+    
+    if [ "$HAS_DATA" -gt 0 ]; then
+        log_info "检测到数据库中已有数据（$HAS_DATA 条记录），将跳过所有数据插入类迁移"
+        log_info "只执行结构性的迁移（创建表、修改表结构等）"
+        
+        # 标记所有数据插入类的 migration 为已执行
+        DATA_MIGRATIONS=(
+            "m251220_100000_insert_test_data"
+            "m251220_110000_insert_member_data"
+            "m251220_150000_seed_demo_data"
+            "m251220_150100_seed_more_today"
+            "m251220_150200_adjust_visit_stats"
+        )
+        
+        for migration in "${DATA_MIGRATIONS[@]}"; do
+            php yii migrate/mark "$migration" --interactive=0 >/dev/null 2>&1 || true
+        done
+        log_info "已标记数据插入类迁移为已执行"
+    fi
+    
     # 检查并标记已存在的表对应的迁移
     log_info "检查已存在的表..."
     
@@ -491,7 +516,14 @@ init_yii2() {
         php yii migrate/mark m251220_031659_create_war_memorial_tables --interactive=0 >/dev/null 2>&1 || true
     fi
     
-    # 运行数据库迁移（只会运行未标记的迁移，主要是数据迁移）
+    # 检查其他可能已存在的表
+    if mysql -u woo -p123456 Webbase -e "SHOW TABLES LIKE 'contact_message'" 2>/dev/null | grep -q "contact_message"; then
+        php yii migrate/mark m251220_130000_create_contact_message_table --interactive=0 >/dev/null 2>&1 || true
+    fi
+    
+    # 注意：sensitive_word 表已被删除，不再需要标记
+    
+    # 运行数据库迁移（只会运行未标记的迁移，主要是结构性的迁移）
     log_info "运行数据库迁移..."
     if php yii migrate --interactive=0 2>/dev/null; then
         log_info "数据库迁移完成"

@@ -14,6 +14,17 @@ class m251220_100000_insert_test_data extends Migration
     {
         echo "开始导入测试数据...\n";
 
+        // 检查是否已有测试数据（通过检查 battle 表是否有数据）
+        $hasData = (new \yii\db\Query())
+            ->from('{{%battle}}')
+            ->exists();
+        
+        if ($hasData) {
+            echo "检测到数据库中已有测试数据，跳过导入以避免重复。\n";
+            echo "如需重新导入，请先清空相关表的数据。\n";
+            return true;
+        }
+
         // SQL文件路径
         $sqlFile = __DIR__ . '/insert_data.sql';
         
@@ -75,6 +86,8 @@ class m251220_100000_insert_test_data extends Migration
                 }
 
                 try {
+                    // 将 INSERT INTO 替换为 INSERT IGNORE INTO，避免重复键错误
+                    $statement = preg_replace('/^INSERT\s+INTO/i', 'INSERT IGNORE INTO', $statement, 1);
                     $db->createCommand($statement)->execute();
                     $successCount++;
                     

@@ -17,7 +17,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?php if ($model->status != 1): ?>
-            <?= Html::a('批准', ['approve', 'id' => $model->id], ['class' => 'btn btn-success', 'data-method' => 'post']) ?>
+            <?= Html::a('批准', ['approve', 'id' => $model->id], [
+                'class' => 'btn btn-success', 
+                'data-method' => 'post',
+                'data-confirm' => '您确定要批准发布这个故事《' . Html::encode($model->title) . '》吗？',
+            ]) ?>
         <?php endif; ?>
         <?php if ($model->status != 2): ?>
             <?= Html::a('拒绝', ['reject', 'id' => $model->id], ['class' => 'btn btn-warning', 'data-method' => 'post']) ?>
