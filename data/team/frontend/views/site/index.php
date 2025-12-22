@@ -46,13 +46,6 @@ $this->title = '首页';
                     <div class="stat-label">纪念场馆</div>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="stat-box">
-                    <div class="stat-icon"><i class="fa fa-shield"></i></div>
-                    <div class="stat-number"><?= $stats['weapons'] ?></div>
-                    <div class="stat-label">武器装备</div>
-                </div>
-            </div>
         </div>
     </div>
 </div>

@@ -5,7 +5,7 @@ use Yii;
 use yii\web\Controller;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
-use common\models\{Battle,Hero,Memorial,TimelineEvent,Story,Weapon,ContactMessage,Statistics};
+use common\models\{Battle,Hero,Memorial,TimelineEvent,Story,ContactMessage,Statistics};
 use frontend\models\{LoginForm as FrontLoginForm,SignupForm,ContactForm};
 
 class SiteController extends Controller
@@ -62,7 +62,6 @@ class SiteController extends Controller
             'battles'   => Battle::find()->where(['status'=>1])->count(),
             'heroes'    => Hero::find()->where(['status'=>1])->count(),
             'memorials' => Memorial::find()->where(['status'=>1])->count(),
-            'weapons'   => Weapon::find()->where(['status'=>1])->count(),
         ];
         return $this->render('index',[
             'featuredBattles'=>$featuredBattles,

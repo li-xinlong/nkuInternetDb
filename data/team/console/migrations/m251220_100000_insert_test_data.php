@@ -168,7 +168,6 @@ class m251220_100000_insert_test_data extends Migration
                 'battle_phase',
                 'story',
                 'timeline_event',
-                'weapon',
                 'memorial',
                 'hero',
                 'battle',

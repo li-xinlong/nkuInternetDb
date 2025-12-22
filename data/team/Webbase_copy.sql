@@ -425,7 +425,7 @@ CREATE TABLE `statistics` (
   `id` int NOT NULL AUTO_INCREMENT,
   `stat_date` date NOT NULL COMMENT '统计日期',
   `stat_type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '类型:visit访问/search搜索/popular热门',
-  `model_type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '模型类型:battle/hero/weapon等',
+  `model_type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '模型类型:battle/hero等',
   `model_id` int DEFAULT NULL COMMENT '模型ID',
   `count` int DEFAULT '0' COMMENT '计数',
   `extra_data` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT '额外数据JSON',
@@ -564,50 +564,6 @@ LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` VALUES (2,'admin','abcdefghijklmnopqrstuvwxyz123456','$2y$10$kvdbJXnexSgSqzU1Q.brfOsUbbkyFE.GC3n3a2qfPOrxxSSec5nQK',NULL,'admin@example.com',10,1766238467,1766238467,NULL,NULL,NULL,'admin');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `weapon`
---
-
-DROP TABLE IF EXISTS `weapon`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `weapon` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '武器名称',
-  `model` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '型号',
-  `country` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '生产国:中国/苏联/美国/德国/日本等',
-  `category` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '类别:rifle步枪/machinegun机枪/artillery火炮/tank坦克/aircraft飞机/ship舰船',
-  `caliber` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '口径',
-  `weight` decimal(10,2) DEFAULT NULL COMMENT '重量(kg)',
-  `range` int DEFAULT NULL COMMENT '射程(m)',
-  `rate_of_fire` int DEFAULT NULL COMMENT '射速(发/分)',
-  `production_year` int DEFAULT NULL COMMENT '生产年份',
-  `quantity_used` int DEFAULT NULL COMMENT '使用数量',
-  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT '武器描述',
-  `technical_specs` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT '技术参数JSON',
-  `famous_battles` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT '著名战役',
-  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '武器图片',
-  `blueprint` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '设计图纸',
-  `views` int DEFAULT '0',
-  `status` tinyint DEFAULT '1',
-  `created_at` int NOT NULL,
-  `updated_at` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idx-weapon-category` (`category`),
-  KEY `idx-weapon-country` (`country`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `weapon`
---
-
-LOCK TABLES `weapon` WRITE;
-/*!40000 ALTER TABLE `weapon` DISABLE KEYS */;
-INSERT INTO `weapon` VALUES (13,'中正式步枪','中正式','中国','rifle','7.92mm',4.08,800,15,1935,600000,'中正式步枪是中国抗战时期使用最广泛的步枪，由德国毛瑟98式步枪改进而来。该枪性能可靠，射击精度高，是中国军队的主力武器之一。',NULL,'淞沪会战、台儿庄战役、武汉会战等',NULL,NULL,2340,1,1766237149,1766237149),(14,'汉阳造步枪','汉阳88式','中国','rifle','7.92mm',4.30,600,10,1896,1000000,'汉阳造是中国自制的第一种步枪，仿制自德国1888式步枪。虽然性能较老旧，但在抗战中仍大量使用，是中国军队的重要武器。',NULL,'平型关战役、百团大战',NULL,NULL,1890,1,1766237149,1766237149),(15,'捷克式轻机枪','ZB26','捷克斯洛伐克','machinegun','7.92mm',9.60,1000,500,1926,30000,'捷克式轻机枪是抗战时期中国军队装备最好的轻机枪之一。该枪火力强大，性能可靠，深受中国士兵喜爱，被称为\"捷克造\"。',NULL,'淞沪会战、台儿庄战役、长沙会战',NULL,NULL,2120,1,1766237149,1766237149),(16,'马克沁重机枪','M1908','德国/中国','machinegun','7.92mm',60.00,2000,600,1908,5000,'马克沁重机枪是世界上第一种真正成功的自动机枪。中国在抗战中使用了大量马克沁重机枪，在阵地防御战中发挥了重要作用。',NULL,'淞沪会战、四行仓库保卫战',NULL,NULL,1780,1,1766237149,1766237149),(17,'三八式步枪','三八式','日本','rifle','6.5mm',3.95,460,15,1905,3400000,'三八式步枪是日军在抗战中使用的主力步枪。该枪射击精度高，但威力较小。中国军队缴获后也大量使用。',NULL,'所有抗日战役',NULL,NULL,2560,1,1766237149,1766237149),(18,'歪把子机枪','大正11年式','日本','machinegun','6.5mm',10.20,600,500,1922,29000,'歪把子机枪是日军的制式轻机枪，因弹匣位置偏左而得名。该枪结构复杂，但火力较强，是日军的重要支援武器。',NULL,'所有抗日战役',NULL,NULL,1920,1,1766237149,1766237149),(19,'九二式重机枪','九二式','日本','machinegun','7.7mm',55.30,800,450,1932,45000,'九二式重机枪是日军的主力重机枪，火力强大，常用于阵地防御。中国军队缴获后也使用这种武器。',NULL,'所有抗日战役',NULL,NULL,1670,1,1766237149,1766237149),(20,'汤姆森冲锋枪','M1928A1','美国','rifle','.45 ACP',4.88,150,700,1928,10000,'汤姆森冲锋枪是二战中著名的冲锋枪，通过租借法案提供给中国。该枪火力猛烈，在近战中威力巨大，深受中国士兵喜爱。',NULL,'缅甸战役、滇西反攻',NULL,NULL,2230,1,1766237149,1766237149),(21,'勃朗宁M1917重机枪','M1917','美国','machinegun','.30-06',47.00,1500,600,1917,3000,'勃朗宁M1917重机枪是美国援助中国的重要武器之一。该枪性能优良，火力强大，在抗战后期发挥了重要作用。',NULL,'滇西反攻、湘西会战',NULL,NULL,1560,1,1766237149,1766237149),(22,'莫辛-纳甘步枪','M1891/30','苏联','rifle','7.62mm',4.00,800,10,1930,50000,'莫辛-纳甘步枪是苏联援助中国的主要步枪。该枪结构简单，坚固耐用，在东北抗日联军中大量使用。',NULL,'东北抗日游击战',NULL,NULL,1340,1,1766237149,1766237149),(23,'德普轻机枪','DP-27','苏联','machinegun','7.62mm',9.12,800,550,1927,8000,'德普轻机枪是苏联援助中国的轻机枪，因弹盘形状被称为\"转盘机枪\"。该枪火力强大，在抗战中发挥了重要作用。',NULL,'东北抗日游击战、百团大战',NULL,NULL,1450,1,1766237149,1766237149),(24,'M3式37毫米战防炮','M3','美国','artillery','37mm',414.00,3700,25,1940,1000,'M3式37毫米战防炮是美国援助中国的反坦克炮。虽然威力有限，但在对付日军轻型坦克时仍有一定效果。',NULL,'滇西反攻、湘西会战',NULL,NULL,1120,1,1766237149,1766237149);
-/*!40000 ALTER TABLE `weapon` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

@@ -61,7 +61,7 @@ AppAsset::register($this);
             'items' => [
                 ['label' => '访问量统计', 'url' => ['/site/index'], 'active' => $controllerId === 'site'],
                 '<li class="nav-header">管理模块</li>',
-                ['label' => '资源管理', 'url' => ['/battle/index'], 'active' => in_array($controllerId, ['battle','memorial','hero','weapon'])],
+                ['label' => '资源管理', 'url' => ['/battle/index'], 'active' => in_array($controllerId, ['battle','memorial','hero'])],
                 ['label' => '故事评论审批', 'url' => ['/guestbook/index', 'GuestbookSearch[related_model]'=>'story'], 'active' => $controllerId==='guestbook'],
                 ['label' => '故事审批', 'url' => ['/story/index'], 'active' => $controllerId==='story'],
                 ['label' => '留言管理', 'url' => ['/contact-message/index'], 'active' => $controllerId==='contact-message'],

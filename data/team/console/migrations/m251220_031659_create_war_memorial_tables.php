@@ -117,35 +117,7 @@ class m251220_031659_create_war_memorial_tables extends Migration
         $this->createIndex('idx-hero_achievement-hero_id', '{{%hero_achievement}}', 'hero_id');
         }
 
-        // 5. 武器装备表
-        if ($checkTable('{{%weapon}}')) {
-            echo "表 weapon 已存在，跳过创建\n";
-        } else {
-        $this->createTable('{{%weapon}}', [
-            'id' => $this->primaryKey(),
-            'name' => $this->string(100)->notNull()->comment('武器名称'),
-            'model' => $this->string(50)->comment('型号'),
-            'country' => $this->string(50)->comment('生产国:中国/苏联/美国/德国/日本等'),
-            'category' => $this->string(50)->comment('类别:rifle步枪/machinegun机枪/artillery火炮/tank坦克/aircraft飞机/ship舰船'),
-            'caliber' => $this->string(50)->comment('口径'),
-            'weight' => $this->decimal(10, 2)->comment('重量(kg)'),
-            'range' => $this->integer()->comment('射程(m)'),
-            'rate_of_fire' => $this->integer()->comment('射速(发/分)'),
-            'production_year' => $this->integer()->comment('生产年份'),
-            'quantity_used' => $this->integer()->comment('使用数量'),
-            'description' => $this->text()->comment('武器描述'),
-            'technical_specs' => $this->text()->comment('技术参数JSON'),
-            'famous_battles' => $this->text()->comment('著名战役'),
-            'image' => $this->string(255)->comment('武器图片'),
-            'blueprint' => $this->string(255)->comment('设计图纸'),
-            'views' => $this->integer()->defaultValue(0),
-            'status' => $this->tinyInteger()->defaultValue(1),
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer()->notNull(),
-        ]);
-        $this->createIndex('idx-weapon-category', '{{%weapon}}', 'category');
-        $this->createIndex('idx-weapon-country', '{{%weapon}}', 'country');
-        }
+        //5. 这个表删除了
 
         // 6. 历史时间轴表
         if ($checkTable('{{%timeline_event}}')) {
@@ -296,7 +268,7 @@ class m251220_031659_create_war_memorial_tables extends Migration
             'id' => $this->primaryKey(),
             'stat_date' => $this->date()->notNull()->comment('统计日期'),
             'stat_type' => $this->string(50)->notNull()->comment('类型:visit访问/search搜索/popular热门'),
-            'model_type' => $this->string(50)->comment('模型类型:battle/hero/weapon等'),
+            'model_type' => $this->string(50)->comment('模型类型:battle/hero等'),
             'model_id' => $this->integer()->comment('模型ID'),
             'count' => $this->integer()->defaultValue(0)->comment('计数'),
             'extra_data' => $this->text()->comment('额外数据JSON'),
@@ -327,7 +299,6 @@ class m251220_031659_create_war_memorial_tables extends Migration
         $this->dropTable('{{%story}}');
         $this->dropTable('{{%memorial}}');
         $this->dropTable('{{%timeline_event}}');
-        $this->dropTable('{{%weapon}}');
         $this->dropTable('{{%hero_achievement}}');
         $this->dropTable('{{%hero}}');
         $this->dropTable('{{%battle_phase}}');
