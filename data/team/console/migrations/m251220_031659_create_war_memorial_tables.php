@@ -45,9 +45,10 @@ class m251220_031659_create_war_memorial_tables extends Migration
             'status' => $this->tinyInteger()->defaultValue(1)->comment('状态'),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
-        ]);
-        $this->createIndex('idx-battle-start_date', '{{%battle}}', 'start_date');
-        $this->createIndex('idx-battle-result', '{{%battle}}', 'result');
+            ]);
+            $this->createIndex('idx-battle-start_date', '{{%battle}}', 'start_date');
+            $this->createIndex('idx-battle-result', '{{%battle}}', 'result');
+        }
 
         // 2. 战役阶段表
         if ($checkTable('{{%battle_phase}}')) {

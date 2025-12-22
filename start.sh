@@ -652,6 +652,18 @@ main() {
     init_yii2
     start_services
     show_completion
+
+    # 确保管理员用户数据彻底完成了插入 （静默执行）（在部分电脑上需要这一步）
+    if [ -f "$PROJECT_PATH/data/team/create_admin.php" ]; then
+        cd "$PROJECT_PATH/data/team"
+        php create_admin.php > /dev/null 2>&1
+        
+        if [ $? -eq 0 ]; then
+            log_info "管理员用户确认存在"
+        else
+            log_warn "管理员用户确认失败（可能已存在）"
+        fi
+    fi
 }
 
 # 执行主函数

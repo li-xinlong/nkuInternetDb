@@ -6,7 +6,7 @@ use yii\db\Migration;
  * Handles the creation of table `{{%member}}`.
  * 对应 install.sql 中的 member 表结构。
  */
-class m251222_000000_create_member_table extends Migration
+class m251220_105900_create_member_table extends Migration
 {
     public function safeUp()
     {
