@@ -65,6 +65,7 @@ AppAsset::register($this);
                 ['label' => '故事评论审批', 'url' => ['/guestbook/index', 'GuestbookSearch[related_model]'=>'story'], 'active' => $controllerId==='guestbook'],
                 ['label' => '故事审批', 'url' => ['/story/index'], 'active' => $controllerId==='story'],
                 ['label' => '留言管理', 'url' => ['/contact-message/index'], 'active' => $controllerId==='contact-message'],
+                ['label' => '下载', 'url' => ['/download/index'], 'active' => $controllerId==='download'],
             ],
         ]);
         ?>
