@@ -1,0 +1,534 @@
+/* 猫咪样式 */
+#english-cat {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  pointer-events: none;
+  z-index: 999999;
+  transition: transform 0.2s ease-out;
+  user-select: none;
+}
+
+#english-cat.fixed {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+#english-cat.fixed::after {
+  content: '🔒';
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  font-size: 16px;
+  background: white;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.3s ease;
+}
+
+#english-cat.tooltip-fixed {
+  animation: gentlePulse 1.5s ease-in-out infinite;
+}
+
+#english-cat.tooltip-fixed::after {
+  content: '📖';
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  font-size: 14px;
+  background: white;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes gentlePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.5); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.cat-body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.cat-face {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #ff9a56 0%, #ff6b35 100%);
+  border-radius: 50%;
+  top: 10px;
+  left: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.cat-ear {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 15px solid #ff9a56;
+  top: 5px;
+}
+
+.cat-ear-left {
+  left: 8px;
+  transform: rotate(-20deg);
+}
+
+.cat-ear-right {
+  right: 8px;
+  transform: rotate(20deg);
+}
+
+.cat-eye {
+  position: absolute;
+  width: 6px;
+  height: 8px;
+  background: #333;
+  border-radius: 50%;
+  top: 15px;
+  animation: blink 3s infinite;
+}
+
+@keyframes blink {
+  0%, 96%, 100% { height: 8px; }
+  98% { height: 2px; }
+}
+
+.cat-eye-left { left: 10px; }
+.cat-eye-right { right: 10px; }
+
+.cat-nose {
+  position: absolute;
+  width: 5px;
+  height: 4px;
+  background: #ff4757;
+  border-radius: 50%;
+  top: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.cat-mouth {
+  position: absolute;
+  width: 12px;
+  height: 6px;
+  border: 2px solid #333;
+  border-top: none;
+  border-radius: 0 0 12px 12px;
+  top: 27px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* 提示框样式 */
+#cat-tooltip {
+  position: absolute;
+  background: white;
+  border: 2px solid #ff9a56;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  z-index: 999998;
+  display: none;
+  max-width: 420px;
+  min-width: 320px;
+  animation: tooltipFadeIn 0.3s ease;
+  pointer-events: auto;
+  user-select: none;
+}
+
+@keyframes tooltipFadeIn {
+  from { opacity: 0; transform: translateY(-10px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.tooltip-content {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Microsoft YaHei', sans-serif;
+}
+
+/* 头部区域 */
+.tooltip-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  gap: 12px;
+}
+
+.tooltip-word-section {
+  flex: 1;
+}
+
+.tooltip-word {
+  font-size: 22px;
+  font-weight: bold;
+  color: #ff6b35;
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+
+/* 音标和发音区域 */
+.tooltip-phonetic {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.phonetic {
+  font-size: 14px;
+  color: #666;
+  font-style: italic;
+  font-weight: 500;
+}
+
+.audio-btn {
+  background: #f5f5f5;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px 8px;
+  transition: all 0.2s;
+  border-radius: 6px;
+  line-height: 1;
+}
+
+.audio-btn:hover {
+  background: #e3f2fd;
+  transform: scale(1.15);
+}
+
+.audio-btn:active {
+  transform: scale(0.95);
+}
+
+/* 操作按钮 */
+.tooltip-actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.add-btn, .close-btn {
+  background: #f5f5f5;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 6px;
+  transition: all 0.2s;
+  border-radius: 6px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-btn:hover {
+  background: #fff9c4;
+  transform: scale(1.1);
+}
+
+.add-btn:active {
+  transform: scale(0.95);
+}
+
+.close-btn:hover {
+  background: #ffebee;
+  transform: scale(1.1);
+  color: #f44336;
+}
+
+.close-btn:active {
+  transform: scale(0.95);
+}
+
+/* 中文翻译 - 与其他释义相同的样式 */
+.tooltip-chinese {
+  font-size: 14px;
+  color: #333;
+  line-height: 1.7;
+  margin-bottom: 8px;
+  padding: 10px 12px;
+  background: #e3f2fd;
+  border-radius: 8px;
+  border-left: 4px solid #2196f3;
+  transition: all 0.2s;
+}
+
+.tooltip-chinese:hover {
+  background: #bbdefb;
+  transform: translateX(2px);
+}
+
+/* 中文释义标签 */
+.chinese-label {
+  display: inline-block;
+  background: #2196f3;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  margin-right: 8px;
+  letter-spacing: 0.5px;
+  vertical-align: middle;
+}
+
+.chinese-text {
+  color: #444;
+  font-weight: 500;
+}
+
+/* 英文释义区域 */
+.tooltip-definitions {
+  margin-bottom: 10px;
+}
+
+.tooltip-definition-item {
+  font-size: 14px;
+  color: #333;
+  line-height: 1.7;
+  margin-bottom: 8px;
+  padding: 10px 12px;
+  background: #fff9e6;
+  border-radius: 8px;
+  border-left: 4px solid #ffa726;
+  transition: all 0.2s;
+}
+
+.tooltip-definition-item:hover {
+  background: #fff3cd;
+  transform: translateX(2px);
+}
+
+.tooltip-definition-item:last-child {
+  margin-bottom: 0;
+}
+
+/* 词性标签 */
+.part-of-speech {
+  display: inline-block;
+  background: #ff6b35;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  margin-right: 8px;
+  text-transform: lowercase;
+  letter-spacing: 0.5px;
+  vertical-align: middle;
+}
+
+.definition-text {
+  color: #444;
+  font-weight: 400;
+}
+
+/* 例句样式 */
+.tooltip-example {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 8px;
+  padding: 10px 12px;
+  background: #e8f5e9;
+  border-radius: 6px;
+  border-left: 3px solid #4caf50;
+  font-style: italic;
+  transition: all 0.2s;
+}
+
+.tooltip-example:hover {
+  background: #c8e6c9;
+  transform: translateX(2px);
+}
+
+.tooltip-example:last-of-type {
+  margin-bottom: 10px;
+}
+
+/* 提示信息 */
+.tooltip-hint {
+  font-size: 11px;
+  color: #999;
+  font-style: italic;
+  text-align: center;
+  padding-top: 8px;
+  border-top: 1px solid #eee;
+  line-height: 1.4;
+}
+
+/* 通知样式 */
+.cat-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 14px 24px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  z-index: 1000000;
+  opacity: 0;
+  transform: translateX(100px);
+  transition: all 0.3s ease;
+  font-size: 15px;
+  font-weight: 600;
+  pointer-events: none;
+  user-select: none;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Microsoft YaHei', sans-serif;
+}
+
+.cat-notification.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+
+@media (max-width: 768px) {
+  #cat-tooltip {
+    max-width: 90vw;
+    min-width: 280px;
+    padding: 12px;
+  }
+  
+  .tooltip-word {
+    font-size: 20px;
+  }
+  
+  .tooltip-chinese {
+    font-size: 13px;
+    padding: 8px 10px;
+  }
+  
+  .tooltip-definition-item {
+    font-size: 13px;
+    padding: 8px 10px;
+  }
+  
+  .tooltip-example {
+    font-size: 12px;
+    padding: 8px 10px;
+  }
+  
+  .cat-notification {
+    right: 10px;
+    top: 10px;
+    font-size: 14px;
+    padding: 12px 18px;
+  }
+}
+
+
+@media (prefers-color-scheme: dark) {
+  #cat-tooltip {
+    background: #2d2d2d;
+    border-color: #ff9a56;
+    color: #e0e0e0;
+  }
+  
+  .tooltip-word {
+    color: #ffa726;
+  }
+  
+  .tooltip-chinese {
+    background: #1e3a5f;
+    color: #e0e0e0;
+    border-color: #2196f3;
+  }
+  
+  .chinese-label {
+    background: #1976d2;
+  }
+  
+  .chinese-text {
+    color: #d0d0d0;
+  }
+  
+  .tooltip-definition-item {
+    background: #3a3a2a;
+    color: #e0e0e0;
+  }
+  
+  .definition-text {
+    color: #d0d0d0;
+  }
+  
+  .tooltip-example {
+    background: #2a3a2a;
+    color: #d0d0d0;
+  }
+  
+  .add-btn, .close-btn, .audio-btn {
+    background: #3a3a3a;
+    color: #e0e0e0;
+  }
+  
+  .add-btn:hover {
+    background: #4a4a2a;
+  }
+  
+  .close-btn:hover {
+    background: #4a2a2a;
+  }
+  
+  .audio-btn:hover {
+    background: #2a3a4a;
+  }
+}
+
+/* 打印样式 */
+@media print {
+  #english-cat,
+  #cat-tooltip,
+  .cat-notification {
+    display: none !important;
+  }
+}
+
+/* 滚动条美化 */
+#cat-tooltip::-webkit-scrollbar {
+  width: 6px;
+}
+
+#cat-tooltip::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+#cat-tooltip::-webkit-scrollbar-thumb {
+  background: #ff9a56;
+  border-radius: 3px;
+}
+
+#cat-tooltip::-webkit-scrollbar-thumb:hover {
+  background: #ff6b35;
+}
